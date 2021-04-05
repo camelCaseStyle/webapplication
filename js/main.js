@@ -7,7 +7,7 @@
  * Student Number:
  *
  */
-
+import 
 
 function redraw() { 
 
@@ -20,6 +20,7 @@ function redraw() {
 
     // update the page
     document.getElementById("target").innerHTML = content;
+    listThreePosts(); 
 }
 
 window.onload = function() {
@@ -27,3 +28,10 @@ window.onload = function() {
 };
 
 
+function listThreePosts(){
+    fetch('./sample.json').then((response)=>{
+        return resonse.json(); 
+    }).then((data)=>{
+        console.log(data);
+    })
+}

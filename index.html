@@ -37,7 +37,17 @@
               <h1>Welcome to FlowTow</h1>
           </hgroup>
       
-          <div id="target"></div>
+          <div id="target">
+          </div>
+          <div class="flowtow">
+            <script id='three-posts' type="text/x-handlebars-template">
+              <ul>
+                {{#each posts}}
+                  <li>Post</li>
+                {{/each}}
+              </ul>
+              </script>
+          </div>
 
       </div>
     </div>
