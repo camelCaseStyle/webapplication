@@ -47,7 +47,6 @@ function getRandomPosts(totalPosts, numberOfposts){
 }
 
 function getTenRecentPosts(posts){
-    console.log('Before Sorting: '+ JSON.stringify(posts, null, 2))
     posts.sort(compareDate);
     posts.forEach(element => {
         element.published_at = new Date(element.published_at).toDateString();
@@ -56,6 +55,8 @@ function getTenRecentPosts(posts){
 }
 
 function compareDate(a,b){
+    a.published_at = new Date(a.published_at);
+    b.published_at = new Date(b.published_at);
     if(a.published_at > b.published_at){
         return -1;
     }else if(a.published_at < b.published_at){
@@ -70,5 +71,5 @@ function getPopularPosts(posts){
 }
 
 function compareLikes(a, b){
-    return b - a; 
+    return b.p_likes - a.p_likes; 
 }
