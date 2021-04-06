@@ -7,10 +7,11 @@
  * Student Number:
  *
  */
-import 
+import {firstThreePostsView, tenMostRecentPosts} from './views.js'
+import {getRandomPosts, getTenRecentPosts} from './util.js'
+
 
 function redraw() { 
-
     let content = "<h2>API Test</h2><ul>";
     content += "<li><a href='/#'>Three Posts</a></li>";
     content += "<li><a href='/#'>Recent Posts</a></li>";
@@ -21,6 +22,8 @@ function redraw() {
     // update the page
     document.getElementById("target").innerHTML = content;
     listThreePosts(); 
+    listTenRecentPosts();
+
 }
 
 window.onload = function() {
@@ -29,9 +32,17 @@ window.onload = function() {
 
 
 function listThreePosts(){
-    fetch('./sample.json').then((response)=>{
-        return resonse.json(); 
+    fetch('/js/sample.json').then((response)=>{
+        return response.json(); 
     }).then((data)=>{
-        console.log(data);
+        firstThreePostsView('three-posts', getRandomPosts(data, 3));
+    })
+}
+
+function listTenRecentPosts(){
+    fetch('/js/sample.json').then((response)=>{
+        return response.json(); 
+    }).then((data)=>{
+        getTenRecentPosts(data)
     })
 }
