@@ -21,36 +21,32 @@ function redraw() {
 
     // update the page
     document.getElementById("target").innerHTML = content;
-    listThreePosts(); 
-    listTenRecentPosts();
-    listPopularPosts(); 
+    loadAllViews();
+     
 }
 
 window.onload = function() {
     redraw();
 };
-
-
-function listThreePosts(){
-    fetch('/js/sample.json').then((response)=>{
-        return response.json(); 
-    }).then((data)=>{
-        firstThreePostsView('three-posts', getRandomPosts(data, 3));
+// loads all  views
+function loadAllViews(){
+    fetch('/js/sample.json').then(response=>{
+        return response.json();
+    }).then(data=>{
+        listThreePosts(data); 
+        listTenRecentPosts(data);
+        listPopularPosts(data);
     })
 }
 
-function listTenRecentPosts(){
-    fetch('/js/sample.json').then((response)=>{
-        return response.json(); 
-    }).then((data)=>{
-        tenMostRecentPostsView('recent-posts', getTenRecentPosts(data));
-    })
+function listThreePosts(data){
+    firstThreePostsView('three-posts', getRandomPosts(data, 3));
 }
 
-function listPopularPosts(){
-    fetch('/js/sample.json').then((response)=>{
-        return response.json(); 
-    }).then((data)=>{
-        tenMostPopularPostsView('popular-posts', getPopularPosts(data));
-    })
+function listTenRecentPosts(data){
+    tenMostRecentPostsView('recent-posts', getTenRecentPosts(data));
+}
+
+function listPopularPosts(data){
+    tenMostPopularPostsView('popular-posts', getPopularPosts(data));
 }
