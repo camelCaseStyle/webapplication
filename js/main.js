@@ -7,8 +7,8 @@
  * Student Number:
  *
  */
-import {firstThreePostsView, tenMostRecentPosts} from './views.js'
-import {getRandomPosts, getTenRecentPosts} from './util.js'
+import {firstThreePostsView, tenMostRecentPostsView, tenMostPopularPostsView} from './views.js'
+import {getRandomPosts, getTenRecentPosts,getPopularPosts} from './util.js'
 
 
 function redraw() { 
@@ -23,7 +23,7 @@ function redraw() {
     document.getElementById("target").innerHTML = content;
     listThreePosts(); 
     listTenRecentPosts();
-
+    listPopularPosts(); 
 }
 
 window.onload = function() {
@@ -43,6 +43,14 @@ function listTenRecentPosts(){
     fetch('/js/sample.json').then((response)=>{
         return response.json(); 
     }).then((data)=>{
-        getTenRecentPosts(data)
+        tenMostRecentPostsView('recent-posts', getTenRecentPosts(data));
+    })
+}
+
+function listPopularPosts(){
+    fetch('/js/sample.json').then((response)=>{
+        return response.json(); 
+    }).then((data)=>{
+        tenMostPopularPostsView('popular-posts', getPopularPosts(data));
     })
 }

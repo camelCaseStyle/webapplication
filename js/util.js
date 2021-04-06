@@ -8,7 +8,7 @@
  *
  */
 
-export {splitHash, getRandomPosts,getTenRecentPosts};
+export {splitHash, getRandomPosts,getTenRecentPosts, getPopularPosts};
 
 // splitHash - given a hash path like "#!/people/2" 
 //   return an object with properties `path` ("people") and `id` (2)
@@ -47,16 +47,28 @@ function getRandomPosts(totalPosts, numberOfposts){
 }
 
 function getTenRecentPosts(posts){
-    console.log('Before Sorting: '+ JSON.stringify(posts))
+    console.log('Before Sorting: '+ JSON.stringify(posts, null, 2))
     posts.sort(compareDate);
-    console.log('After Sorting: '+ JSON.stringify(posts))
+    posts.forEach(element => {
+        element.published_at = new Date(element.published_at).toDateString();
+    });
+    return posts;
 }
 
 function compareDate(a,b){
     if(a.published_at > b.published_at){
-        return 1;
-    }else if(a.published_at < b.published_at){
         return -1;
+    }else if(a.published_at < b.published_at){
+        return 1;
     }
     return 0; 
+}
+
+function getPopularPosts(posts){   
+    posts.sort(compareLikes);
+    return posts; 
+}
+
+function compareLikes(a, b){
+    return b - a; 
 }
