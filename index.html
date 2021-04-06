@@ -39,16 +39,23 @@
       
           <div id="target">
           </div>
-          <div class="flowtow">
-            <script id='three-posts' type="text/x-handlebars-template">
-              <ul>
-                {{#each posts}}
-                  <li>Post</li>
-                {{/each}}
-              </ul>
-              </script>
-          </div>
-
+      </div>
+      <div id='three-posts'>
+        <script id='three-posts-template' type="text/x-handlebars-template">
+          
+            {{#each posts}}
+                <div class="flowtow">
+                  <figure>
+                    <img src={{this.p_url}}>
+                    <figcaption>{{this.p_caption}}</figcaption>
+                  </figure>
+                  <p>{{this.p_author}}</p>
+                  <p>{{this.p_likes}}</p>
+                </div>
+              
+            {{/each}}
+          
+          </script>
       </div>
     </div>
 
