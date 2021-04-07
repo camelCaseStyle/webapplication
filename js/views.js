@@ -11,13 +11,14 @@
 
 export {firstThreePostsView,tenMostRecentPostsView, tenMostPopularPostsView} 
 
- // View function to show the first three posts 
+
 
  function applyTemplate(targetId, templateId, data){
    let target = document.getElementById(targetId);
    let template = Handlebars.compile(document.getElementById(templateId).textContent);
    target.innerHTML = template(data);
  }
+  // View function to show the first three posts 
  function firstThreePostsView(targetId, posts){
     applyTemplate(targetId, 'three-posts-template', {posts:posts})
  }
@@ -26,6 +27,7 @@ export {firstThreePostsView,tenMostRecentPostsView, tenMostPopularPostsView}
     applyTemplate(targetId, 'recent-posts-template', {posts:posts})
 
  }
+ // View ten most popular posts based on number of likes 
  function tenMostPopularPostsView(targetId, posts){
    applyTemplate(targetId, 'popular-posts-template', {posts:posts})
 

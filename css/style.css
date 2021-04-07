@@ -94,7 +94,9 @@ footer {
     background-color: #212529;
     text-align: center;
 }
-
+#registration-form{
+    clear: both;
+}
 
 /*****
 Content
@@ -168,7 +170,7 @@ hgroup,#whatis, #registration, #recent-users{
     font-size: large;
     text-align: center;
     padding: 20px;
-    background-image: url('./shutter.svg');
+    background-image: url('/assets/shutter.svg');
     background-size: 70px;
     background-repeat: repeat;
     background-position: center;
@@ -235,19 +237,21 @@ hgroup,#whatis, #registration, #recent-users{
 #popular-posts{
     grid-column-start: 3;
     grid-column-end: 5;
+    justify-content: center;
 }
 table{
-    width: 100%;
+    width: 80%;
     border: solid 1px indianred;
     border-spacing: 0px;
     border-radius: 10px;
     padding: 12px;
+    margin: 0 auto;
 }
- tr{
+tr{
     transition: transform 0.2s;
 }
 tr:hover{
-    transform: scale(1.03);
+    transform: scale(1.02);
     cursor:pointer;
     background-image: linear-gradient(to bottom, #d5dbe3, #cad8dc, #c4d4d2, #c3cfc5, #c8c8ba);
 }
