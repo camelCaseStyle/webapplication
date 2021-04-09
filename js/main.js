@@ -7,8 +7,9 @@
  * Student Number:
  *
  */
-import {firstThreePostsView, tenMostRecentPostsView, tenMostPopularPostsView} from './views.js'
-import {getRandomPosts, getTenRecentPosts,getPopularPosts} from './util.js'
+import {Util} from './util.js'
+import {Model} from './model.js'
+import {Views} from './views.js'
 
 
 function redraw() { 
@@ -21,32 +22,57 @@ function redraw() {
 
     // update the page
     document.getElementById("target").innerHTML = content;
-    loadAllViews();
      
 }
-
+window.addEventListener('modelUpdated', (e)=>{
+    loadPage(); 
+})
+window.addEventListener('likeAdded', (e)=>{
+    console.log('Post was liked')
+    location.reload(); 
+})
 window.onload = function() {
-    redraw();
+    Model.updatePosts(); 
+    redraw(); 
 };
+
+window.onhashchange = function(){
+    loadPage(); 
+}
+
+function loadPage(){
+    let hash = Util.splitHash(window.location.hash);
+    if(hash.path ===''){
+        console.log('Loading main view')
+        loadMainPage();
+        bindings();
+    }else {
+        console.log('Loading single view')
+        loadSinglePostView();
+        bindings();
+    }
+}
+
 // loads all  views
-function loadAllViews(){
-    fetch('/js/sample.json').then(response=>{
-        return response.json();
-    }).then(data=>{
-        listThreePosts(data); 
-        listTenRecentPosts(data);
-        listPopularPosts(data);
-    })
+function loadMainPage(){
+    Views.firstThreePostsView('three-posts', Model.getRandomPosts(3));
+    Views.tenMostRecentPostsView('recent-posts', Model.getRecentPosts(10));
+    Views.tenMostPopularPostsView('popular-posts', Model.getPopularPosts(10));
 }
 
-function listThreePosts(data){
-    firstThreePostsView('three-posts', getRandomPosts(data, 3));
+function loadSinglePostView(){
+    let hash = Util.splitHash(window.location.hash);
+    Views.singlePostView('single-post', Model.getPost(hash.id));
 }
 
-function listTenRecentPosts(data){
-    tenMostRecentPostsView('recent-posts', getTenRecentPosts(data));
+function bindings(){
+    let likeButtons = document.getElementsByClassName('like-button');
+    console.log(likeButtons)
+    for(let i = 0; i<likeButtons.length;i++){
+        likeButtons[i].onclick = updateLikes;
+    }
 }
-
-function listPopularPosts(data){
-    tenMostPopularPostsView('popular-posts', getPopularPosts(data));
+function updateLikes(){
+    console.log('Like was added')
+    Model.addLike(this.dataset.id);
 }

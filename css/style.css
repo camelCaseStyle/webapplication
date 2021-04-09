@@ -69,14 +69,14 @@ form{
     border-radius: 5px;
 }
 
-a{
+.link-green{
     text-decoration: none;
     color: white;
     transition: transform .2s;
     display: inline-block;
 }
 
-a:hover{
+.link-green:hover{
     transform: scale(1.2);
     color: yellow;
 }
@@ -118,41 +118,41 @@ Content
     grid-template-columns: repeat(4, 1fr);
 }
 
-.flowtow{
-    display: flex;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    overflow: hidden;
-}
+
 #three-posts{
     grid-column-start: 2;
     grid-column-end: 4; 
     grid-row-start: 2;
     grid-row-end: 3;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
 }
+
 hgroup{
     color: indianred;
     font-size: 2em;
 }
-hgroup,#whatis, #registration, #recent-users{
+hgroup,#whatis, #registration, #recent-users, #single-post{
     grid-column-start: 1;
     grid-column-end: 5;
+}
+#single-post-image{
+    margin-bottom: 2.2em;
 }
 .flowtow >ul{
     list-style: none;
 }
 .flowtow > ul> li > img{
-    transition: transform ease-in-out .5s;
+    transition: transform ease-in-out .2s;
     border-radius: 10px;
     max-width: 90%;
+    min-width: 0;
     margin-bottom: 1em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .flowtow > ul> li > img:hover{
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
+
 .like-button>img{
     width: 1em;
 }

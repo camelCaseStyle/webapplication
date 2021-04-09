@@ -17,10 +17,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/map">Map</a></li>
-                    <li><a href="/partners">Our Partners</a></li>
+                    <li><a class='link-green' href="/">Home</a></li>
+                    <li><a class='link-green' href="/about">About</a></li>
+                    <li><a class='link-green' href="/map">Map</a></li>
+                    <li><a class='link-green' href="/partners">Our Partners</a></li>
                 </ul>
             </nav>
 
@@ -45,16 +45,34 @@
                     <script id='three-posts-template' type="text/x-handlebars-template">
                         {{#each posts}}
                             <div class="flowtow">
-                                <ul id="most-popular-first">
-                                    <li><img src={{this.p_url}}></li>
-                                    <li>{{this.p_author}}</li>
-                                    <li>{{this.p_caption}}</li>
-                                    <button class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
-                                </ul>
+                                
+                                    <ul id="most-popular-first">
+                                            <li><img src={{this.p_url}} href="/#!/posts/{{this.id}}"></li>
+                                            <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                            <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
+                                        <button data-id="{{this.id}}"class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
+                                    </ul>
+                                
                             </div>
                         {{/each}}
                     </script>
                 </div>
+                <div id='single-post'>
+                    <script id='single-post-template' type="text/x-handlebars-template">
+                        <div class="flowtow">
+                                <ul id="most-popular-first">
+                                        <li><img id='single-post-image'src={{this.p_url}} href="/#!/posts/{{this.id}}"></li>
+                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
+                                    <button  data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
+                                </ul>
+                            
+                        </div>
+                    </script>
+
+                </div>
+
+
                 <div id='recent-posts'>
                         <script id='recent-posts-template' type="text/x-handlebars-template">
                             <table>
@@ -65,12 +83,11 @@
                                 </thead>
                             {{#each posts}}
                                 <tr class='tr-hidden'>
-                                        <td><img src={{this.p_url}} class='sm-img'></td>
-                                        <td>{{this.p_caption}}</td>
-                                        <td>{{this.p_author}}</td>
-                                        <td>{{this.published_at}}</td>
-                                        <td><button class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
-                                </div>
+                                        <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                        <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                        <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                        <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                        <td><button data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
                                 </tr>
                             {{/each}}
                         </script>
@@ -85,12 +102,12 @@
                                 </tr>
                             </thead>
                         {{#each posts}}
-                            <tr class="tr-hidden">
-                                    <td><img src={{this.p_url}} class='sm-img'></td>
-                                    <td>{{this.p_caption}}</td>
-                                    <td>{{this.p_author}}</td>
-                                    <td>{{this.published_at}}</td>
-                                    <td><button class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
+                            <tr class="tr-hidden" data-id="{{this.id}}">
+                                    <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                    <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                    <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                    <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                    <td><button data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
                             </div>
                             </tr>
                         {{/each}}
@@ -137,12 +154,12 @@
                 <p>Click on a username to review each user's posts.</p>
 
                 <ul id="recent-user-list">
-                    <li class="user"><a href="#">Bob Bobalooba</a></li>
-                    <li class="user"><a href="#">Mary Contrary</a></li>
-                    <li class="user"><a href="#">James Bean</a></li>
-                    <li class="user"><a href="#">Jim Jimbulator</a></li>
-                    <li class="user"><a href="#">Axle Mandible</a></li>
-                    <li class="user"><a href="#">Baz Barfoo</a></li>
+                    <li class="user"><a class='link-green' href="#">Bob Bobalooba</a></li>
+                    <li class="user"><a class='link-green' href="#">Mary Contrary</a></li>
+                    <li class="user"><a class='link-green' href="#">James Bean</a></li>
+                    <li class="user"><a class='link-green' href="#">Jim Jimbulator</a></li>
+                    <li class="user"><a class='link-green' href="#">Axle Mandible</a></li>
+                    <li class="user"><a class='link-green' href="#">Baz Barfoo</a></li>
                 </ul>
             </div>
         </div>
@@ -150,16 +167,16 @@
         <footer>
             <div id="social">
                 <ul>
-                <li id="social-twitter"><a href="#">Twitter</a></li>
-                <li id="social-facebook"><a href="#">Facebook</a></li>
-                <li id="social-instagram"><a href="#">Instagram</a></li>
+                <li id="social-twitter"><a class='link-green' href="#">Twitter</a></li>
+                <li id="social-facebook"><a class='link-green' href="#">Facebook</a></li>
+                <li id="social-instagram"><a class='link-green' href="#">Instagram</a></li>
                 </ul>
             </div>
 
             <ul class="footer-tos">
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Privacy</a></li>
-                <li><a href="#">Cookies</a></li>
+                <li><a class='link-green' href="#">Terms</a></li>
+                <li><a class='link-green' href="#">Privacy</a></li>
+                <li><a class='link-green' href="#">Cookies</a></li>
             </ul>
 
             <p id="copyright">All content and images subject to copyright &copy; COMP2110 FlowTow 2021.</p>
