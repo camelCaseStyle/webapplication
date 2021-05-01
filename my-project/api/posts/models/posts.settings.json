@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "name": "Posts"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "p_url": {
+      "type": "string"
+    },
+    "p_likes": {
+      "type": "biginteger"
+    },
+    "p_caption": {
+      "type": "string"
+    },
+    "p_author": {
+      "type": "string"
+    }
+  }
+}
