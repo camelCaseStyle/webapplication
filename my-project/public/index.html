@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>FlowTow</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="stylesheet" href="./css/style.css" type="text/css">
+        <!-- Include Handlebars from a CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+        <script src="./js/main.js" type=module defer></script>
+    </head>
+
+    <body>
+        <header>
+            <div id="logo">
+                <img src="./assets/camera.svg">
+            </div>
+            <nav>
+                <ul>
+                    <li><a class='link-green' href="/">Home</a></li>
+                    <li><a class='link-green' href="#whatis">About</a></li>
+                    <li><a class='link-green' href="/map">All Posts</a></li>
+                    <li><a class='link-green' href="/partners">My Posts</a></li>
+                </ul>
+            </nav>
+
+            <form id="search-form" action='/search'>
+                <div class="form-input">
+                    <label for="search-input">Search:</label>
+                    <input id="search-input" name="search">
+
+                </div>
+                <button type ="button" id="search-button">Go</button>
+            </form>
+        </header>
+        <div id='login'></div>
+        <script id='login-form-template' type="text/x-handlebars-template">
+            {{#if user}}
+            <p>Logged in as {{user.username}}</p>
+            {{else}}
+            <form id ='login-form'>
+                <label for='username'>Username</label>
+                <input name="username">
+                <label for='password'>Password</label>
+                <input name="password" type="password">
+                <input type="submit">
+            </form>
+            {{/if}}
+        </script>
+
+        <div id='target'>
+            
+        </div>
+        <div id="content">
+            <div id="heading"> 
+                <hgroup>
+                    <h1>Welcome to FlowTow!</h1>
+                </hgroup>
+                <div id='three-posts'>
+                    
+                </div>
+                <script id='three-posts-template' type="text/x-handlebars-template">
+                    {{#each posts}}
+                        <div class="flowtow">
+                            
+                                <ul id="most-popular-first">
+                                        <li><img src="{{this.p_url}}" alt="" class='three-image'></li>
+                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
+                                    <button type ="button" data-id="{{this.id}}"class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
+                                </ul>
+                            
+                        </div>
+                    {{/each}}
+                </script>
+                <div id='single-post'>
+                </div>
+                <script id='single-post-template' type="text/x-handlebars-template">
+                    <div class="flowtow">
+                            <ul id="most-popular-first">
+                                    <li><img id='single-post-image'src={{this.p_url}} href="/#!/posts/{{this.id}}"></li>
+                                    <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                    <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
+                                <button type ="button"  data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
+                            </ul>
+                        
+                    </div>
+                </script>
+
+                <div id='recent-posts'>
+                        
+                    
+                </div>
+                <script id='recent-posts-template' type="text/x-handlebars-template">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="5">Recent Posts</th>
+                            </tr>
+                        </thead>
+                    {{#each posts}}
+                        <tr class='tr-hidden'>
+                                <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
+                        </tr>
+                    {{/each}}
+                </table>    
+                </script>
+                <div id='popular-posts'>
+                    
+                
+                </div>
+                <script id='popular-posts-template' type="text/x-handlebars-template">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="5">Popular Posts</th>
+                            </tr>
+                        </thead>
+                    {{#each posts}}
+                        <tr class="tr-hidden" data-id="{{this.id}}">
+                                <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
+                        </div>
+                        </tr>
+                    {{/each}}
+                </table>
+                </script>
+            </div>
+
+            <div id="whatis">
+                <h2>What is FlowTow?</h2>
+                <p>FlowTow is a new, exciting, photo sharing service like nothing you've seen before!</p>
+                <p>FlowTow will support logging in users, posting images, making comments and viewing images in various ways.</p>
+            </div> 
+
+            <div id="registration">
+                <h2>Sign Up!</h2>
+                <p>Sign up to become a FlowTow user.</p>
+
+                <form id="registration-form" action="/register" method="POST">
+                    <div class="form-input">
+                        <label for="username-input">Username</label>
+                        <input type="text" name="username" id="username-input">
+                    </div>
+
+                    <div class="form-input">
+                        <label for="firstname-input">First Name</label>
+                        <input type="text" name="firstname" id="firstname-input">
+                    </div>
+
+                    <div class="form-input">
+                        <label for="lastname-input">Last Name</label>
+                        <input type="text" name="lastname" id="lastname-input">
+                    </div>
+
+                    <div class="form-submit">
+                        <input type="submit" value="Register">
+                    </div>
+                </form>
+            </div>
+            
+            <div id="recent-users">
+                <h2>Recent Active Users</h2>
+                <p>Click on a username to review each user's posts.</p>
+
+                <ul id="recent-user-list">
+                    <li class="user"><a class='link-green' href="#">Bob Bobalooba</a></li>
+                    <li class="user"><a class='link-green' href="#">Mary Contrary</a></li>
+                    <li class="user"><a class='link-green' href="#">James Bean</a></li>
+                    <li class="user"><a class='link-green' href="#">Jim Jimbulator</a></li>
+                    <li class="user"><a class='link-green' href="#">Axle Mandible</a></li>
+                    <li class="user"><a class='link-green' href="#">Baz Barfoo</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <div id="social">
+                <ul>
+                <li id="social-twitter"><a class='link-green' href="#">Twitter</a></li>
+                <li id="social-facebook"><a class='link-green' href="#">Facebook</a></li>
+                <li id="social-instagram"><a class='link-green' href="#">Instagram</a></li>
+                </ul>
+            </div>
+
+            <ul class="footer-tos">
+                <li><a class='link-green' href="#">Terms</a></li>
+                <li><a class='link-green' href="#">Privacy</a></li>
+                <li><a class='link-green' href="#">Cookies</a></li>
+            </ul>
+
+            <p id="copyright">All content and images subject to copyright &copy; COMP2110 FlowTow 2021.</p>
+        </footer>
+    </body>
+</html>
