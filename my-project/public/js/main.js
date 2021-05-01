@@ -21,7 +21,7 @@ window.addEventListener('userLogin', ()=>{
 })
 window.addEventListener('likeAdded', (e)=>{
     console.log('Post was liked')
-    location.reload(); 
+    Model.updatePosts(); 
 })
 window.onload = function() {
     Model.updatePosts(); 
