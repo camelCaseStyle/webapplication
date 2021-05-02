@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "posts",
   "info": {
-    "name": "Posts"
+    "name": "Posts",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,6 +23,11 @@
     },
     "p_author": {
       "type": "string"
+    },
+    "p_user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "posts"
     }
   }
 }

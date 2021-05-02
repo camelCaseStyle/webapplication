@@ -46,8 +46,8 @@ const Auth = {
 
     //getUser - return the user object from userData
     getUser: function() {
-        console.log(this.userData);
         if (this.userData) {
+            console.log(this.userData.user);
             return this.userData.user;
         } else {
             return null;

@@ -19,7 +19,7 @@ export {Model};
  *   "likeAdded" event when a request to add a new like returns
  *   "commentAdded" event when a request to add a new comment returns 
 */
-
+import {Auth} from './service.js';
 const Model = {
     postsUrl: '/posts', 
     uploadUrl: '/upload',  
@@ -36,7 +36,8 @@ const Model = {
         fetch(this.serverUrl+this.postsUrl).then(response =>{
             return response.json();
         }).then((data)=>{
-            this.data.posts = data; 
+            this.data.posts = data;
+            console.log(this.data.posts) 
             let event = new CustomEvent('modelUpdated');
             window.dispatchEvent(event);
         })
@@ -70,7 +71,7 @@ const Model = {
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
-        
+        return this.data.posts.filter(post => post.p_user.id === userid);
     },
 
     // addLike - increase the number of likes by 1 
@@ -146,7 +147,7 @@ const Model = {
 function compareDate (a,b){
     a.published_at = new Date(a.published_at);
     b.published_at = new Date(b.published_at);
-    return a.published_at - b.published_at;
+    return b.published_at - a.published_at;
 }
 
 /**

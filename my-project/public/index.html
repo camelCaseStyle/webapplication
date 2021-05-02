@@ -19,8 +19,8 @@
                 <ul>
                     <li><a class='link-green' href="#">Home</a></li>
                     <li><a class='link-green' href="#whatis">About</a></li>
-                    <li><a class='link-green' href="/map">All Posts</a></li>
-                    <li><a class='link-green' href="/partners">My Posts</a></li>
+                    <li><a class='link-green' href="#!/all-posts">All Posts</a></li>
+                    <li><a class='link-green' href="#!/my-posts">My Posts</a></li>
                 </ul>
             </nav>
 
@@ -35,6 +35,15 @@
         </header>
         <div id='login'></div>
         <div id='login-result'></div>
+        <div id='error'></div>
+        <script id='error-form-template' type="text/x-handlebars-template">
+            {{#if userLoginError}}
+            <div>You have to login first</div>
+            {{/if}}
+            {{#if loginFailed}}
+            <div>Login failed, please try again</div>
+            {{/if}}
+        </script>
         <script id='login-form-template' type="text/x-handlebars-template">
             {{#if user.username}}
             <p>Logged in as {{user.username}}</p>
@@ -62,9 +71,49 @@
                 <hgroup>
                     <h1>Welcome to FlowTow!</h1>
                 </hgroup>
-                <div id='three-posts'>
-                    
-                </div>
+                <div id='three-posts'></div>
+                <div id='recent-posts'></div>
+                <div id='popular-posts'></div>
+                <div id='single-post'></div>
+                <div id='all-posts'></div>
+                <div id='my-posts'></div>
+                
+                <script id ='all-posts-template' type="text/x-handlebars-template">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="5">All Posts</th>
+                            </tr>
+                        </thead>
+                    {{#each posts}}
+                        <tr class='tr-hidden'>
+                                <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
+                        </tr>
+                    {{/each}}
+                </table> 
+                </script>
+                <script id ='my-posts-template' type="text/x-handlebars-template">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="5">My Posts</th>
+                            </tr>
+                        </thead>
+                    {{#each posts}}
+                        <tr class='tr-hidden'>
+                                <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
+                                <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
+                        </tr>
+                    {{/each}}
+                </table> 
+                </script>
                 <script id='three-posts-template' type="text/x-handlebars-template">
                     {{#each posts}}
                         <div class="flowtow">
@@ -79,8 +128,7 @@
                         </div>
                     {{/each}}
                 </script>
-                <div id='single-post'>
-                </div>
+                
                 <script id='single-post-template' type="text/x-handlebars-template">
                     <div class="flowtow">
                             <ul id="most-popular-first">
@@ -93,10 +141,7 @@
                     </div>
                 </script>
 
-                <div id='recent-posts'>
-                        
-                    
-                </div>
+                
                 <script id='recent-posts-template' type="text/x-handlebars-template">
                     <table>
                         <thead>
@@ -115,10 +160,7 @@
                     {{/each}}
                 </table>    
                 </script>
-                <div id='popular-posts'>
-                    
                 
-                </div>
                 <script id='popular-posts-template' type="text/x-handlebars-template">
                     <table>
                         <thead>
