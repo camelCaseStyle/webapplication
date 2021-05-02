@@ -17,7 +17,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a class='link-green' href="/">Home</a></li>
+                    <li><a class='link-green' href="#">Home</a></li>
                     <li><a class='link-green' href="#whatis">About</a></li>
                     <li><a class='link-green' href="/map">All Posts</a></li>
                     <li><a class='link-green' href="/partners">My Posts</a></li>
@@ -34,8 +34,9 @@
             </form>
         </header>
         <div id='login'></div>
+        <div id='login-result'></div>
         <script id='login-form-template' type="text/x-handlebars-template">
-            {{#if user}}
+            {{#if user.username}}
             <p>Logged in as {{user.username}}</p>
             {{else}}
             <form id ='login-form'>
@@ -45,6 +46,11 @@
                 <input name="password" type="password">
                 <input type="submit">
             </form>
+            {{/if}}
+        </script>
+        <script id ='login-result-template' type="text/x-handlebars-template">
+            {{#if isNotLogin}}
+                    <div>Login failed, please try again</div>
             {{/if}}
         </script>
 

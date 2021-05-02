@@ -16,8 +16,14 @@ window.addEventListener('modelUpdated', (e)=>{
     loadPage(); 
 })
 
-window.addEventListener('userLogin', ()=>{
-    loadUserLoggedInView();
+window.addEventListener('userLoginSuccess', ()=>{
+    let isNotLogin = false;
+    loadUserLoggedInResultView(isNotLogin);
+})
+
+window.addEventListener('userLoginFailed', ()=>{
+    let isNotLogin = true; 
+    loadUserLoggedInResultView(isNotLogin);
 })
 window.addEventListener('likeAdded', (e)=>{
     console.log('Post was liked')
@@ -60,6 +66,11 @@ function loadSinglePostView(){
 
 function loadUserLoggedInView(){
     Views.userLoggedInView('login', Auth.getUser());
+}
+
+function loadUserLoggedInResultView(isNotLogin){
+    loadUserLoggedInView();
+    Views.userLoginLoginResultView('login-result',isNotLogin)
 }
 
 function bindings(){

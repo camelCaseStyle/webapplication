@@ -31,10 +31,10 @@ const Views = {
       applyTemplate(targetId, 'single-post-template', post);
    },
    userLoggedInView: function(targetId, user){
-      if(user){
-         console.log({user:user})
-      }
-      applyTemplate(targetId, 'login-form-template', {user:user});
+         applyTemplate(targetId, 'login-form-template', {user:user});
+   }, 
+   userLoginLoginResultView: function(targetId, loginResult){
+      applyTemplate(targetId, 'login-result-template', {isNotLogin:loginResult});
    }
 }
 

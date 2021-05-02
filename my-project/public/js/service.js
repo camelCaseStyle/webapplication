@@ -32,9 +32,13 @@ const Auth = {
         }).then(response =>{
             return response.json();
         }).then(data=>{
-            this.userData = data; 
-            console.log(this.userData)
-            let event = new CustomEvent('userLogin');
+            let event = null; 
+            if(data.user){
+                event = new CustomEvent('userLoginSuccess');
+                this.userData = data; 
+            }else{
+                event = new CustomEvent('userLoginFailed');
+            }
             window.dispatchEvent(event);
         }) 
 
@@ -42,6 +46,7 @@ const Auth = {
 
     //getUser - return the user object from userData
     getUser: function() {
+        console.log(this.userData);
         if (this.userData) {
             return this.userData.user;
         } else {
