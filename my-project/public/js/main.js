@@ -18,12 +18,13 @@ window.addEventListener('modelUpdated', (e)=>{
 
 window.addEventListener('userLoginSuccess', ()=>{
     let isNotLogin = false;
+    showError('')
     loadUserLoggedInResultView(isNotLogin);
 })
 
 window.addEventListener('userLoginFailed', ()=>{
     let isNotLogin = true; 
-    loadUserLoggedInResultView(isNotLogin);
+    showError('loginFailed');
 })
 window.addEventListener('likeAdded', (e)=>{
     console.log('Post was liked')
@@ -39,15 +40,29 @@ window.onhashchange = function(){
 
 function loadPage(){
     let hash = Util.splitHash(window.location.hash);
-    if(hash.path ===''){
-        console.log('Loading main view')
-        loadMainPage();
-        bindings();
-    }else {
-        console.log('Loading single view')
-        loadSinglePostView();
-        bindings();
+    showError('')
+    switch(hash.path){
+        case '':
+            console.log('Loading main view')
+            loadMainPage();
+            break;
+        case 'posts':
+            console.log('Loading single view')
+            loadSinglePostView();
+            break;
+        case 'all-posts':
+            console.log('Loading all posts view');
+            loadAllPostsView(); 
+            break; 
+        case 'my-posts':
+            if(Auth.getUser()){
+                loadMyPostsView(); 
+            }else{
+                showError('userNotLoggedIn');
+            }
+            break;
     }
+    bindings();
 }
 
 // loads all  views
@@ -70,7 +85,6 @@ function loadUserLoggedInView(){
 
 function loadUserLoggedInResultView(isNotLogin){
     loadUserLoggedInView();
-    Views.userLoginLoginResultView('login-result',isNotLogin)
 }
 
 function bindings(){
@@ -89,4 +103,15 @@ function formSubmitted(event){
     const userName = this.elements['username'].value; 
     const password = this.elements['password'].value; 
     Auth.login(userName, password);
+}
+
+function loadAllPostsView(){
+    Views.allPostsView('all-posts', Model.getRecentPosts(Model.getPosts().length));
+}
+
+function loadMyPostsView(){
+    Views.myPostsView('my-posts', Model.getUserPosts(Auth.getUser().id))
+}
+function showError(error){
+    Views.showErrorView('error',error);
 }

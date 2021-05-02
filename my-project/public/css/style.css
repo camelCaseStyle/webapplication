@@ -131,7 +131,7 @@ hgroup{
     color: indianred;
     font-size: 2em;
 }
-hgroup,#whatis, #registration, #recent-users, #single-post{
+hgroup,#whatis, #registration, #recent-users, #single-post, #all-posts, #my-posts{
     grid-column-start: 1;
     grid-column-end: 5;
 }
