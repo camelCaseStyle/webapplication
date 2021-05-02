@@ -36,11 +36,11 @@ const Views = {
       applyTemplate(targetId, 'login-form-template', {user:user});
    },  
    allPostsView(targetId, posts){
-      clean('recent-posts', 'popular-posts', 'three-posts', 'my-posts', 'error');
+      clean('recent-posts', 'popular-posts', 'three-posts', 'my-posts', 'error', 'single-post');
       applyTemplate(targetId, 'all-posts-template', {posts:posts});
    },
    myPostsView(targetId, posts){
-      clean('recent-posts', 'popular-posts', 'three-posts', 'all-posts', 'error');
+      clean('recent-posts', 'popular-posts', 'three-posts', 'all-posts', 'error', 'single-post');
       applyTemplate(targetId, 'my-posts-template', {posts:posts});
    },
    showErrorView(targetId, error){

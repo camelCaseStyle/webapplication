@@ -16,6 +16,9 @@ window.addEventListener('modelUpdated', (e)=>{
     loadPage(); 
 })
 
+window.addEventListener('postAdded', ()=>{
+    loadMyPostsView();
+})
 window.addEventListener('userLoginSuccess', ()=>{
     let isNotLogin = false;
     showError('')
@@ -93,6 +96,8 @@ function bindings(){
         likeButtons[i].onclick = updateLikes;
     }
     let form = document.getElementById('login-form');
+    let newPostForm = document.getElementById('postform');
+    if(newPostForm) postform.addEventListener('submit', newPostFormSubmitted);
     if(form)form.addEventListener('submit', formSubmitted);
 }
 function updateLikes(){
@@ -114,4 +119,14 @@ function loadMyPostsView(){
 }
 function showError(error){
     Views.showErrorView('error',error);
+}
+
+function newPostFormSubmitted(event){
+    event.preventDefault();
+    let postData = {
+        'p_url': this.elements['p_url'].value, 
+        'p_caption': this.elements['p_caption'].value,
+        'p_user': Auth.getUser()
+    }
+    Model.addPost(postData);
 }
