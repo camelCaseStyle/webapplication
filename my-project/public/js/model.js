@@ -66,12 +66,26 @@ const Model = {
     // postData is an object containing all fields in the post object (e.g., p_caption)
     // when the request is resolved, creates an "postAdded" event
     addPost: function(postData) {
-
+        console.log(postData);
+        fetch(this.postsUrl,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `bearer ${Auth.getJWT()}`
+            }, 
+            body: JSON.stringify(postData)
+        }).then(response =>{
+            return response.json()
+        }).then(data =>{
+            this.data.posts.push(data);
+            let event = new CustomEvent('postAdded');
+            window.dispatchEvent(event);
+        })
     },
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
-        return this.data.posts.filter(post => post.p_user.id === userid);
+        return this.data.posts.filter(post => post.p_user.id === userid).sort(compareDate);
     },
 
     // addLike - increase the number of likes by 1 
@@ -88,7 +102,8 @@ const Model = {
         fetch(url,{
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `bearer ${Auth.getJWT()}`
             },
             body: JSON.stringify(updatedLikes)
         }).then(()=>{
