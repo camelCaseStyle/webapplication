@@ -153,8 +153,9 @@ hgroup,#whatis, #registration, #recent-users, #single-post, #all-posts, #my-post
     transform: scale(1.2);
 }
 
-.like-button>img{
+.like-button>img,.delete-button>img{
     width: 1em;
+    cursor: pointer;
 }
 
 .like-button{

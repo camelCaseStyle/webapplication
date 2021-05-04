@@ -17,16 +17,16 @@ window.addEventListener('modelUpdated', (e)=>{
 })
 
 window.addEventListener('postAdded', ()=>{
-    loadMyPostsView();
+    Model.updatePosts(); 
 })
 window.addEventListener('userLoginSuccess', ()=>{
     let isNotLogin = false;
     showError('')
-    loadUserLoggedInResultView(isNotLogin);
+    loadPage(); 
 })
 
 window.addEventListener('userLoginFailed', ()=>{
-    let isNotLogin = true; 
+    loadPage(); 
     showError('loginFailed');
 })
 window.addEventListener('likeAdded', (e)=>{
@@ -40,10 +40,17 @@ window.onload = function() {
 window.onhashchange = function(){
     loadPage(); 
 }
+window.addEventListener('postDeleted', (e)=>{
+    Model.updatePosts();  
+})
 
+window.addEventListener('commentAdded', ()=>{
+    Model.updatePosts(); 
+})
 function loadPage(){
     let hash = Util.splitHash(window.location.hash);
     showError('')
+    Views.userLoggedInView('login', Auth.getUser());
     switch(hash.path){
         case '':
             console.log('Loading main view')
@@ -58,6 +65,7 @@ function loadPage(){
             loadAllPostsView(); 
             break; 
         case 'my-posts':
+            console.log('Loading my posts view');
             if(Auth.getUser()){
                 loadMyPostsView(); 
             }else{
@@ -73,22 +81,19 @@ function loadMainPage(){
     Views.firstThreePostsView('three-posts', Model.getRandomPosts(3));
     Views.tenMostRecentPostsView('recent-posts', Model.getRecentPosts(10));
     Views.tenMostPopularPostsView('popular-posts', Model.getPopularPosts(10));
-    Views.userLoggedInView('login', Auth.getUser());
 }
 
 function loadSinglePostView(){
     let hash = Util.splitHash(window.location.hash);
-    Views.userLoggedInView('login', Auth.getUser());
-    Views.singlePostView('single-post', Model.getPost(hash.id));
+    let post = Model.getPost(hash.id);
+    post.isLogged = Auth.getUser(); 
+    Views.singlePostView('single-post', post);
 }
 
 function loadUserLoggedInView(){
     Views.userLoggedInView('login', Auth.getUser());
 }
 
-function loadUserLoggedInResultView(isNotLogin){
-    loadUserLoggedInView();
-}
 
 function bindings(){
     let likeButtons = document.getElementsByClassName('like-button');
@@ -99,6 +104,16 @@ function bindings(){
     let newPostForm = document.getElementById('postform');
     if(newPostForm) postform.addEventListener('submit', newPostFormSubmitted);
     if(form)form.addEventListener('submit', formSubmitted);
+    let commentForm = document.getElementById('commentform');
+    if(commentForm)commentForm.addEventListener('submit', addComment);
+    let deleteButtons = document.getElementsByClassName('delete-button');
+    if(deleteButtons){
+        for(let i = 0; i < deleteButtons.length; i++){
+            deleteButtons[i].addEventListener('click', deletePost);
+        }
+    }
+    let logoutButton = document.getElementById('logout-button');
+    if(logoutButton) logoutButton.addEventListener('click', logoutUser);
 }
 function updateLikes(){
     Model.addLike(this.dataset.id);
@@ -126,7 +141,29 @@ function newPostFormSubmitted(event){
     let postData = {
         'p_url': this.elements['p_url'].value, 
         'p_caption': this.elements['p_caption'].value,
-        'p_user': Auth.getUser()
+        'p_user': Auth.getUser(), 
+        'p_author': Auth.getUser().username
     }
     Model.addPost(postData);
+}
+
+// Function to submit the new comment form 
+function addComment(event){
+    event.preventDefault(); 
+    let commentData ={
+        c_content: this.elements['c_content'].value, 
+        c_author: Auth.getUser(), 
+        c_post: Model.getPost(this.dataset.id)
+    }
+    Model.addComment(commentData);
+}
+
+function deletePost(){
+    let post = Model.getPost(this.dataset.id); 
+    Model.deletePost(post);
+}
+function logoutUser(){
+    Auth.destroyJWT();
+    loadMainPage(); 
+    window.location.reload(); 
 }

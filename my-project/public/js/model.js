@@ -163,6 +163,33 @@ const Model = {
         this.data.posts.sort((a,b)=>b.p_likes-a.p_likes);
         return this.data.posts.slice(0,N); 
     },
+    deletePost: function(post){
+        fetch(this.postsUrl+'/'+post.id, {
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `bearer ${Auth.getJWT()}`
+            },
+        }).then(response =>{
+            return response.json();
+        }).then(data=>{
+            let promises = [];
+            promises.push(data.p_comments.forEach(comment =>{
+                return fetch(this.commentsUrl+'/'+comment.id, {
+                    method: 'DELETE', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `bearer ${Auth.getJWT()}`
+                    }
+                })
+            }));
+            
+            Promise.all(promises).then(()=>{
+                let event = new CustomEvent('postDeleted');
+                window.dispatchEvent(event);
+            });
+        }).catch(console.error());
+    }
 
 }
 

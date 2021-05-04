@@ -47,7 +47,7 @@ const Auth = {
     //getUser - return the user object from userData
     getUser: function() {
         if (this.userData) {
-            console.log(this.userData.user);
+            console.log(this.userData);
             return this.userData.user;
         } else {
             return null;
@@ -61,6 +61,9 @@ const Auth = {
         } else {
             return null;
         } 
+    },
+    destroyJWT: function(){
+        this.userData = null;
     }
     
 }

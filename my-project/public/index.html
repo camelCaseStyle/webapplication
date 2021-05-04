@@ -45,6 +45,7 @@
         <script id='login-form-template' type="text/x-handlebars-template">
             {{#if user.username}}
             <p>Logged in as {{user.username}}</p>
+            <button id='logout-button'>Logout</button>
             {{else}}
             <form id ='login-form'>
                 <label for='username'>username</label>
@@ -118,7 +119,8 @@
                                 <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
                                 <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
-                        </tr>
+                                <td><button type ="button" data-id="{{this.id}}" class="delete-button"><img src="./assets/delete.svg"></button></td>
+                            </tr>
                     {{/each}}
                 </table> 
                 </script>
@@ -150,6 +152,15 @@
                                 <li>{{c_content}}</li>
                             </ul>
                             {{/each}}
+                            {{#if this.isLogged}}
+                            <form id="commentform" action="/comments" method="POST" data-id="{{this.id}}">
+                                <div class="form-input" >
+                                    <label for="comment-input">Comment</label>
+                                    <input type="text" name="c_content" id="comment-input">
+                                    <input  type="submit" value="Add a Comment" name="c_post">
+                                </div>
+                            </form>
+                            {{/if}}
                         
                     </div>
                 </script>
