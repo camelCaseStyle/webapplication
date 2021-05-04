@@ -145,6 +145,11 @@
                                     <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
                                 <button type ="button"  data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
                             </ul>
+                            {{#each this.p_comments}}
+                            <ul id="most-popular-first">
+                                <li>{{c_content}}</li>
+                            </ul>
+                            {{/each}}
                         
                     </div>
                 </script>
