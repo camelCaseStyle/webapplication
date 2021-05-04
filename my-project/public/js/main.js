@@ -94,11 +94,6 @@ function loadSinglePostView(){
     Views.singlePostView('single-post', post);
 }
 
-function loadUserLoggedInView(){
-    Views.userLoggedInView('login', Auth.getUser());
-}
-
-
 function bindings(){
     let likeButtons = document.getElementsByClassName('like-button');
     for(let i = 0; i<likeButtons.length;i++){
