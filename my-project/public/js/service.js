@@ -64,6 +64,8 @@ const Auth = {
     },
     destroyJWT: function(){
         this.userData = null;
+        let event = new CustomEvent('logOut');
+        window.dispatchEvent(event);
     }
     
 }
