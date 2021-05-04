@@ -33,9 +33,7 @@
                 <button type ="button" id="search-button">Go</button>
             </form>
         </header>
-        <div id='login'></div>
-        <div id='login-result'></div>
-        <div id='error'></div>
+       
         <script id='error-form-template' type="text/x-handlebars-template">
             {{#if userLoginError}}
             <div>You have to login first</div>
@@ -49,9 +47,9 @@
             <p>Logged in as {{user.username}}</p>
             {{else}}
             <form id ='login-form'>
-                <label for='username'>Username</label>
+                <label for='username'>username</label>
                 <input name="username">
-                <label for='password'>Password</label>
+                <label for='password'>password</label>
                 <input name="password" type="password">
                 <input type="submit">
             </form>
@@ -68,6 +66,9 @@
         </div>
         <div id="content">
             <div id="heading"> 
+                <div id='login'></div>
+                <div id='login-result'></div>
+                <div id='error'></div>
                 <hgroup>
                     <h1>Welcome to FlowTow!</h1>
                 </hgroup>

@@ -62,6 +62,10 @@
     "posts": {
       "via": "p_user",
       "collection": "posts"
+    },
+    "comments": {
+      "via": "c_author",
+      "collection": "comments"
     }
   }
 }
