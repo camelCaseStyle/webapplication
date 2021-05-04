@@ -47,6 +47,10 @@ window.addEventListener('postDeleted', (e)=>{
 window.addEventListener('commentAdded', ()=>{
     Model.updatePosts(); 
 })
+
+window.addEventListener('logOut', ()=>{
+    location.assign('/#')
+})
 function loadPage(){
     let hash = Util.splitHash(window.location.hash);
     showError('')
@@ -164,6 +168,4 @@ function deletePost(){
 }
 function logoutUser(){
     Auth.destroyJWT();
-    loadMainPage(); 
-    window.location.reload(); 
 }
