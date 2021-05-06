@@ -55,7 +55,9 @@ const Model = {
         while(this.data.posts[i].id != postid){
             i++; 
         }
-        return this.data.posts[i]; 
+        // Most recent comment to appear on top
+        this.data.posts[i].p_comments.sort(compareDate);
+        return this.data.posts[i];
     },
 
     setPosts: function(posts) {

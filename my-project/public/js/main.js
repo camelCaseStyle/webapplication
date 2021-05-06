@@ -49,7 +49,12 @@ window.addEventListener('commentAdded', ()=>{
 })
 
 window.addEventListener('logOut', ()=>{
-    location.assign('/#')
+    if(Util.splitHash(window.location.hash).path === ''){
+        location.reload(); 
+    }else{
+        location.assign('/#')
+    }
+    
 })
 function loadPage(){
     let hash = Util.splitHash(window.location.hash);
