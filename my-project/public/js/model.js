@@ -165,6 +165,9 @@ const Model = {
         this.data.posts.sort((a,b)=>b.p_likes-a.p_likes);
         return this.data.posts.slice(0,N); 
     },
+    // deletePost - delete a post and all its comments 
+    // post is the post to be deleted 
+    // when the post is deleted dispatches 'postDeleted' event
     deletePost: function(post){
         fetch(this.postsUrl+'/'+post.id, {
             method: 'DELETE', 
@@ -185,7 +188,7 @@ const Model = {
                     }
                 })
             }));
-            
+            // wait till all delete comment promises are resolved
             Promise.all(promises).then(()=>{
                 let event = new CustomEvent('postDeleted');
                 window.dispatchEvent(event);

@@ -62,7 +62,7 @@ const Auth = {
             return null;
         } 
     },
-    destroyJWT: function(){
+    logout: function(){
         this.userData = null;
         let event = new CustomEvent('logOut');
         window.dispatchEvent(event);

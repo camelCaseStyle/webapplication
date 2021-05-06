@@ -167,5 +167,5 @@ function deletePost(){
     Model.deletePost(post);
 }
 function logoutUser(){
-    Auth.destroyJWT();
+    Auth.logout();
 }
