@@ -152,12 +152,25 @@ hgroup,#whatis, #registration, #recent-users, #single-post, #all-posts, #my-post
 .flowtow > ul> li > img:hover{
     transform: scale(1.2);
 }
-
-.like-button>img,.delete-button>img{
+.delete-button{
+    width: 100px;
+    cursor: pointer;
+}
+.like-button>img,.delete-button>object{
     width: 1em;
     cursor: pointer;
 }
 
+button > *{
+    pointer-events: none;
+}
+.svg-delete:hover {
+    cursor: pointer;
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+    fill: red;
+}
+  
+  
 .like-button{
     width: 100px;;
     height: fit-content;

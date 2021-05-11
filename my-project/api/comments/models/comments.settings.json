@@ -21,8 +21,8 @@
       "via": "comments"
     },
     "c_post": {
-      "model": "posts",
-      "via": "p_comments"
+      "via": "p_comment",
+      "model": "posts"
     }
   }
 }

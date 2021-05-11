@@ -145,8 +145,7 @@ function newPostFormSubmitted(event){
     let postData = {
         'p_url': this.elements['p_url'].value, 
         'p_caption': this.elements['p_caption'].value,
-        'p_user': Auth.getUser(), 
-        'p_author': Auth.getUser().username
+        'p_author': Auth.getUser(), 
     }
     Model.addPost(postData);
 }

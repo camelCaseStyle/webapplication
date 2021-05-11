@@ -91,7 +91,7 @@
                         <tr class='tr-hidden'>
                                 <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
-                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
                                 <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
                         </tr>
@@ -116,10 +116,14 @@
                         <tr class='tr-hidden'>
                                 <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
-                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
                                 <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
-                                <td><button type ="button" data-id="{{this.id}}" class="delete-button"><img src="./assets/delete.svg"></button></td>
+                                <td>
+                                    <button type ="button" data-id="{{this.id}}" class="delete-button">
+                                        <object type="image/svg+xml" data="./assets/delete.svg" class="svg-delete"></object>
+                                    </button>
+                                </td>
                             </tr>
                     {{/each}}
                 </table> 
@@ -130,7 +134,7 @@
                             
                                 <ul id="most-popular-first">
                                         <li><img src="{{this.p_url}}" alt="" class='three-image'></li>
-                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                        <li><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></li>
                                         <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
                                     <button type ="button" data-id="{{this.id}}"class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
                                 </ul>
@@ -143,11 +147,11 @@
                     <div class="flowtow">
                             <ul id="most-popular-first">
                                     <li><img id='single-post-image'src={{this.p_url}} href="/#!/posts/{{this.id}}"></li>
-                                    <li><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></li>
+                                    <li><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></li>
                                     <li><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></li>
                                 <button type ="button"  data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button>
                             </ul>
-                            {{#each this.p_comments}}
+                            {{#each this.p_comment}}
                             <ul id="most-popular-first">
                                 <li>{{c_content}}</li>
                             </ul>
@@ -177,7 +181,7 @@
                         <tr class='tr-hidden'>
                                 <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
-                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
                                 <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
                         </tr>
@@ -196,7 +200,7 @@
                         <tr class="tr-hidden" data-id="{{this.id}}">
                                 <td><a href="/#!/posts/{{this.id}}"><img src={{this.p_url}} class='sm-img'></a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.p_caption}}</a></td>
-                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author}}</a></td>
+                                <td><a href="/#!/posts/{{this.id}}">{{this.p_author.username}}</a></td>
                                 <td><a href="/#!/posts/{{this.id}}">{{this.published_at}}</a></td>
                                 <td><button type ="button" data-id="{{this.id}}" class="like-button">{{this.p_likes}} <img src="./assets/like.svg"></button></td>
                         </div>

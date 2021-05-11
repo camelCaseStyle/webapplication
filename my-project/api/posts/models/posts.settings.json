@@ -21,17 +21,14 @@
     "p_caption": {
       "type": "string"
     },
-    "p_author": {
-      "type": "string"
+    "p_comment": {
+      "collection": "comments",
+      "via": "c_post"
     },
-    "p_user": {
+    "p_author": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "posts"
-    },
-    "p_comments": {
-      "via": "c_post",
-      "collection": "comments"
     }
   }
 }

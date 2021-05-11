@@ -56,7 +56,7 @@ const Model = {
             i++; 
         }
         // Most recent comment to appear on top
-        this.data.posts[i].p_comments.sort(compareDate);
+        this.data.posts[i].p_comment.sort(compareDate);
         return this.data.posts[i];
     },
 
@@ -87,7 +87,7 @@ const Model = {
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function(userid) {
-        return this.data.posts.filter(post => post.p_user.id === userid).sort(compareDate);
+        return this.data.posts.filter(post => post.p_author.id === userid).sort(compareDate);
     },
 
     // addLike - increase the number of likes by 1 
@@ -156,6 +156,7 @@ const Model = {
         let posts = this.data.posts.slice(0,N);
         posts.sort(compareDate);
         posts.forEach(post => post.published_at = new Date(post.published_at).toDateString())
+        console.log(posts)
         return posts;
     },
 
@@ -179,7 +180,7 @@ const Model = {
             return response.json();
         }).then(data=>{
             let promises = [];
-            promises.push(data.p_comments.forEach(comment =>{
+            promises.push(data.p_comment.forEach(comment =>{
                 return fetch(this.commentsUrl+'/'+comment.id, {
                     method: 'DELETE', 
                     headers: {
