@@ -153,11 +153,11 @@ const Model = {
     // getRecentPosts - return the N most recent as an array
     //  posts, ordered by timestamp, most recent first
     getRecentPosts: function(N) {
-        let posts = this.data.posts.slice(0,N);
+        let posts = [...this.data.posts]
         posts.sort(compareDate);
         posts.forEach(post => post.published_at = new Date(post.published_at).toDateString())
         console.log(posts)
-        return posts;
+        return posts.slice(0,N);
     },
 
     // getPopularPosts - return the N most popular as an array
